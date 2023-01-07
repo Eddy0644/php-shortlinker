@@ -87,7 +87,7 @@ function show_admin_panel($db){
         </select><br/>
         Token: <input type="text" name="token" id="token"><br/>
         Link Target: <input type="text" name="link"><br/>
-        <input type="submit" onclick="doNewToken(this)" value="{ Do it !! }">
+        <input type="submit" onclick="doNewToken(this)" id="form_Key" value="{ Do it !! }">
     </form>
     <button onclick="location.reload()">-----Refresh-----</button>
     <script>
@@ -99,6 +99,7 @@ function show_admin_panel($db){
             let ele2=ele.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling;
             window.token.value=ele2.innerText;
             window.act_opt_Del.selected=true;
+            window.form_Key.focus();
         }
     </script>
     <style>
