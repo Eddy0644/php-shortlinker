@@ -31,6 +31,7 @@ if(isset($_REQUEST["adm"])){
             $db["stat"][$tk]=["lastAccess"=>"<i>Not yet</i>","triggerCount"=>0];
             $db["link"][$tk]=$link;
             echo "<h2>Successfully added an entry:token is ($tk), link is ($link)</h2>";
+            show_admin_panel($db);
             logger("INFO","added new token, tk is {".$tk."},link is {".$link."}");
             gracefullyExit($db,true);
         }break;
@@ -59,7 +60,7 @@ function show_admin_panel($db){
 
     <table border="1" style="border-collapse: collapse">
         <tbody>
-        <tr><td colspan="3">Overview of all the shortened URLs</td></tr>
+        <tr><td colspan="5">Overview of all the shortened URLs</td></tr>
         <tr>
             <td>Short Token</td>
             <td>Link</td>
@@ -79,7 +80,7 @@ function show_admin_panel($db){
         <?php } ?>
         </tbody>
     </table><hr/>
-    <form action="" method="post" style="border:solid 1px gray">
+    <form action="" method="post" style="border:solid 1px gray;padding:10px 20px;">
         <!--    <input type="hidden" name="act" value="add">-->
         Action:<select name="act" id="act_Select">
             <option value="add" selected>➕</option>
@@ -87,9 +88,9 @@ function show_admin_panel($db){
         </select><br/>
         Token: <input type="text" name="token" id="token"><br/>
         Link Target: <input type="text" name="link"><br/>
-        <input type="submit" onclick="doNewToken(this)" id="form_Key" value="{ Do it !! }">
+        <input type="submit" class="big_btn" onclick="doNewToken(this)" id="form_Key" value="{ Do it !! }">
     </form>
-    <button onclick="location.reload()">-----Refresh-----</button>
+    <button onclick="location.reload()" style="" class="big_btn">-----Refresh-----</button>
     <script>
         function doNewToken(ele){
             let linkEle=ele.previousElementSibling.previousElementSibling;
@@ -106,6 +107,11 @@ function show_admin_panel($db){
         td{
             text-align: center;
             padding:5px;
+        }
+        .big_btn{
+            height:50px;width:200px;
+            margin:5px auto;
+            font-size:larger;
         }
     </style>
 
