@@ -74,7 +74,7 @@ function show_admin_panel($db){
             <tr>
                 <!--            <td>--><?//=$k?><!--</td>-->
                 <td><a href="https://c.gacenwinl.cn/link/?s=<?=$k?>"><?=$k?></a></td>
-                <td><a href="<?=$v?>"><?=$v?></a></td>
+                <td class="link_column"><a href="<?=$v?>"><?=$v?></a></td>
                 <td><?=$db["stat"][$k]["triggerCount"]?></td>
                 <td><?=$db["stat"][$k]["lastAccess"]?></td>
                 <td><a href="#" onclick="doDelToken(this)">✖</a></td>
@@ -115,6 +115,19 @@ function show_admin_panel($db){
             height:50px;width:200px;
             margin:5px auto;
             font-size:larger;
+        }
+        .link_column{
+            width:250px;
+            height:40px;
+            font-size:smaller;
+            overflow: hidden;
+            text-overflow:clip;
+            /*word-wrap: break-word;*/
+            /*word-break: break-all;*/
+            /*white-space: nowrap;*/
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:2;
         }
     </style>
 
