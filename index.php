@@ -1,4 +1,6 @@
 <?php
+//TODO:Known Problems Status:✖
+//The program fails when the database have no items (not a empty data file)
 $GLOBALS["log_text"]="";
 $db=unserialize(file_get_contents("db.pdata"));
 if(isset($_GET["s"])){
