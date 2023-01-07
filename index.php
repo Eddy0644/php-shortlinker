@@ -34,6 +34,7 @@ if(isset($_REQUEST["adm"])){
         }break;
         case "del":{
             $tk=$_REQUEST["token"];
+            $link=$db["link"][$tk];
             unset($db["stat"][$tk]);
             unset($db["link"][$tk]);
             logger("INFO","admin deleted a token, tk is {".$tk."},original-link is {".$link."}");
