@@ -32,7 +32,7 @@ if(isset($_REQUEST["adm"])){
             $db["link"][$tk]=$link;
             echo "<h2>Successfully added an entry:token is ($tk), link is ($link)</h2>";
             logger("INFO","added new token, tk is {".$tk."},link is {".$link."}");
-            gracefullyExit($db);
+            gracefullyExit($db,true);
         }break;
         case "del":{
             $tk=$_REQUEST["token"];
@@ -42,7 +42,7 @@ if(isset($_REQUEST["adm"])){
 //            header("HTTP/1.1 204 No Content");
             show_admin_panel($db);
             logger("INFO","admin deleted a token, tk is {".$tk."},original-link is {".$link."}");
-            gracefullyExit($db);
+            gracefullyExit($db,true);
         }break;
 //        case "":{
 //        }break;
@@ -117,7 +117,8 @@ function show_admin_panel($db){
 function logger($type,$text){
     $GLOBALS["log_text"].=sprintf("%s [%-5s] %s\n",date("Ymd His"),$type,$text);
 }
-function gracefullyExit($db){
+function gracefullyExit($db,$isAdmin=false){
+    if($isAdmin)file_put_contents("db_old",file_get_contents("db.pdata")."\n".file_get_contents("db_old"));
     file_put_contents("db.pdata",serialize($db));
     file_put_contents("log.txt",$GLOBALS["log_text"].file_get_contents("log.txt"));
     exit;
