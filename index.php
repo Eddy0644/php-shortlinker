@@ -1,6 +1,7 @@
 <?php
 //TODO:Known Problems Status:✖
-//The program fails when the database have no items (not a empty data file)
+//The admin panel fails when the database have no items (not a empty data file)
+//Refresh Button may send duplicate requests to the server.Replay succeeded.
 $GLOBALS["log_text"]="";
 $db=unserialize(file_get_contents("db.pdata"));
 if(isset($_GET["s"])){
@@ -101,6 +102,7 @@ function show_admin_panel($db){
             window.token.value=ele2.innerText;
             window.act_opt_Del.selected=true;
             window.form_Key.focus();
+            return false;
         }
     </script>
     <style>
