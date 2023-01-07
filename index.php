@@ -26,7 +26,7 @@ if(isset($_REQUEST["adm"])){
         case "add":{
             $tk=$_REQUEST["token"];
             $link=base64_decode($_REQUEST["link"]);
-            $db["stat"][$tk]=["lastAccess"=>"","triggerCount"=>0];
+            $db["stat"][$tk]=["lastAccess"=>"<i>Not yet</i>","triggerCount"=>0];
             $db["link"][$tk]=$link;
             echo "<h2>Successfully added an entry:token is ($tk), link is ($link)</h2>";
             logger("INFO","added new token, tk is {".$tk."},link is {".$link."}");
@@ -37,18 +37,26 @@ if(isset($_REQUEST["adm"])){
             $link=$db["link"][$tk];
             unset($db["stat"][$tk]);
             unset($db["link"][$tk]);
+//            header("HTTP/1.1 204 No Content");
+            show_admin_panel($db);
             logger("INFO","admin deleted a token, tk is {".$tk."},original-link is {".$link."}");
             gracefullyExit($db);
         }break;
 //        case "":{
 //        }break;
-        default:{
-            //Present a brief introduction of all the links.
-//            TODO0:Provide a control panel of them.
-            ?>
+        default:
+            show_admin_panel($db);
+        break;
+    }
+}
 
-<table border="1" style="border-collapse: collapse">
-    <tbody>
+function show_admin_panel($db){
+    //Present a brief introduction of all the links.
+//            TODO0:Provide a control panel of them.
+    ?>
+
+    <table border="1" style="border-collapse: collapse">
+        <tbody>
         <tr><td colspan="3">Overview of all the shortened URLs</td></tr>
         <tr>
             <td>Short Token</td>
@@ -57,55 +65,52 @@ if(isset($_REQUEST["adm"])){
             <td>lastAccess</td>
             <td>Operations</td>
         </tr>
-            <?php foreach($db["link"] as $k=>$v){     ?>
-        <tr>
-<!--            <td>--><?//=$k?><!--</td>-->
-            <td><a href="https://c.gacenwinl.cn/link/?s=<?=$k?>"><?=$k?></a></td>
-            <td><a href="<?=$v?>"><?=$v?></a></td>
-            <td><?=$db["stat"][$k]["triggerCount"]?></td>
-            <td><?=$db["stat"][$k]["lastAccess"]?></td>
-            <td><a href="#" onclick="doDelToken(this)">✖</a></td>
-        </tr>
-            <?php } ?>
-    </tbody>
-</table><hr/>
-<form action="" method="post" style="border:solid 1px gray">
-<!--    <input type="hidden" name="act" value="add">-->
-    Action:<select name="act" id="act_Select">
-        <option value="add" selected>➕</option>
-        <option value="del" id="act_opt_Del">✖</option>
-    </select><br/>
-    Token: <input type="text" name="token" id="token"><br/>
-    Link Target: <input type="text" name="link"><br/>
-    <input type="submit" onclick="doNewToken(this)" value="{ Do it !! }">
-</form>
-<script>
-    function doNewToken(ele){
-        let linkEle=ele.previousElementSibling;
-        linkEle.value=btoa(linkEle.value);
-    }
-    function doDelToken(ele){
-        let ele2=ele.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling;
-        window.token.value=ele2.innerText;
-        window.act_opt_Del.selected=true;
-    }
-</script>
-<style>
-    td{
-        text-align: center;
-        padding:5px;
-    }
-</style>
+        <?php foreach($db["link"] as $k=>$v){     ?>
+            <tr>
+                <!--            <td>--><?//=$k?><!--</td>-->
+                <td><a href="https://c.gacenwinl.cn/link/?s=<?=$k?>"><?=$k?></a></td>
+                <td><a href="<?=$v?>"><?=$v?></a></td>
+                <td><?=$db["stat"][$k]["triggerCount"]?></td>
+                <td><?=$db["stat"][$k]["lastAccess"]?></td>
+                <td><a href="#" onclick="doDelToken(this)">✖</a></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table><hr/>
+    <form action="" method="post" style="border:solid 1px gray">
+        <!--    <input type="hidden" name="act" value="add">-->
+        Action:<select name="act" id="act_Select">
+            <option value="add" selected>➕</option>
+            <option value="del" id="act_opt_Del">✖</option>
+        </select><br/>
+        Token: <input type="text" name="token" id="token"><br/>
+        Link Target: <input type="text" name="link"><br/>
+        <input type="submit" onclick="doNewToken(this)" value="{ Do it !! }">
+    </form>
+    <button onclick="location.reload()">-----Refresh-----</button>
+    <script>
+        function doNewToken(ele){
+            let linkEle=ele.previousElementSibling.previousElementSibling;
+            linkEle.value=btoa(linkEle.value);
+        }
+        function doDelToken(ele){
+            let ele2=ele.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling;
+            window.token.value=ele2.innerText;
+            window.act_opt_Del.selected=true;
+        }
+    </script>
+    <style>
+        td{
+            text-align: center;
+            padding:5px;
+        }
+    </style>
 
-<?php
-            //End of control panel.
-            logger("INFO","admin refreshed the graph.");
-            gracefullyExit($db);
-        }break;
-    }
+    <?php
+    //End of control panel.
+    logger("INFO","admin refreshed the graph.");
+    gracefullyExit($db);
 }
-
-
 
 function logger($type,$text){
     $GLOBALS["log_text"].=sprintf("%s [%-5s] %s\n",date("Ymd His"),$type,$text);
