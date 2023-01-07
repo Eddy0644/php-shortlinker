@@ -2,6 +2,7 @@
 //TODO:Known Problems Status:✖
 //The admin panel fails when the database have no items (not a empty data file)
 //Refresh Button may send duplicate requests to the server.Replay succeeded.
+//db_old failed to work properly.
 $GLOBALS["log_text"]="";
 $db=unserialize(file_get_contents("db.pdata"));
 if(isset($_GET["s"])){
