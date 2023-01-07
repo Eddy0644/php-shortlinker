@@ -3,6 +3,9 @@
 //The admin panel fails when the database have no items (not a empty data file)
 //Refresh Button may send duplicate requests to the server.Replay succeeded.
 //db_old failed to work properly.
+
+//TODO:Add Functions: ✖
+//Generate a random key for public use, which prevents other links, which have simliar tokens, from being spotted!
 $GLOBALS["log_text"]="";
 $db=unserialize(file_get_contents("db.pdata"));
 if(isset($_GET["s"])){
@@ -74,7 +77,7 @@ function show_admin_panel($db){
             <tr>
                 <!--            <td>--><?//=$k?><!--</td>-->
                 <td><a target="_blank" href="https://c.gacenwinl.cn/link/?s=<?=$k?>"><?=$k?></a></td>
-                <td class="link_column"><a href="<?=$v?>"><?=$v?></a></td>
+                <td class="link_column"><a target="_blank" href="<?=$v?>"><?=$v?></a></td>
                 <td><?=$db["stat"][$k]["triggerCount"]?></td>
                 <td><?=$db["stat"][$k]["lastAccess"]?></td>
                 <td><a href="#" onclick="doDelToken(this)">✖</a></td>
