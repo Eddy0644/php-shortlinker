@@ -1,0 +1,8 @@
+20230107 180253 [DEBUG] incoming new request, token is {abc5}
+20230107 180250 [DEBUG] incoming new request, token is {abc2}
+20230107 180023 [INFO ] admin deleted a token, tk is {abc3},original-link is {}
+20230107 174132 [DEBUG] incoming new request, token is {abc5}
+20230107 173023 [DEBUG] incoming new request, token is {abc2}
+20230107 173016 [INFO ] incoming new request but not found, token is {2}
+
+

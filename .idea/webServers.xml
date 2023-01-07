@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="4c39c6fa-56df-4ca2-bf36-cc1f8ee76977" name="199-111" url="https://c.gacenwinl.cn/link/">
+        <fileTransfer rootFolder="/www/wwwroot/default/link" accessType="SFTP" host="42.192.199.111" port="6022" sshConfigId="d53fe0fe-6d39-4deb-bc89-35faf6e64d4b" sshConfig="cy@42.192.199.111:6022 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
