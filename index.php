@@ -73,7 +73,7 @@ function show_admin_panel($db){
         <?php foreach($db["link"] as $k=>$v){     ?>
             <tr>
                 <!--            <td>--><?//=$k?><!--</td>-->
-                <td><a href="https://c.gacenwinl.cn/link/?s=<?=$k?>"><?=$k?></a></td>
+                <td><a target="_blank" href="https://c.gacenwinl.cn/link/?s=<?=$k?>"><?=$k?></a></td>
                 <td class="link_column"><a href="<?=$v?>"><?=$v?></a></td>
                 <td><?=$db["stat"][$k]["triggerCount"]?></td>
                 <td><?=$db["stat"][$k]["lastAccess"]?></td>
